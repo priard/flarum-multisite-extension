@@ -1,11 +1,15 @@
 # Flarum Multisite Extension
 
-[![Version](https://img.shields.io/badge/version-0.2.1-blue.svg)](https://github.com/priard/flarum-multisite-extension/releases)
+[![Version](https://img.shields.io/badge/version-0.2.2-blue.svg)](https://github.com/priard/flarum-multisite-extension/releases)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
 
 This extension adds multi-site support to Flarum for WordPress integration, allowing multiple WordPress sites to share a single Flarum instance for comments.
 
 ## Version History
+
+### v0.2.2 (2025-01-13)
+- Fixed migration error with hasColumn check scope
+- Corrected column existence verification in migration
 
 ### v0.2.1 (2025-01-13)
 - Fixed migration error by removing deprecated Extend\Database usage
