@@ -12,6 +12,13 @@ use PriArd\FlarumMultisite\Api\Controller\UpdateDiscussionStatusController;
 use PriArd\FlarumMultisite\Listener\SaveDiscussionMetadata;
 
 return [
+    // Frontend assets
+    (new Extend\Frontend('admin'))
+        ->js(__DIR__ . '/js/dist/admin.js'),
+    
+    // Locales
+    (new Extend\Locales(__DIR__ . '/resources/locale')),
+    
     // Database migrations
 
     // API routes
@@ -38,13 +45,18 @@ return [
             return $attributes;
         }),
 
-    // Settings for character limits
+    // Settings with default values
     (new Extend\Settings())
         ->default('priard_multisite.default_character_limit', 5000)
         ->default('priard_multisite.character_limits', json_encode([
             'site1' => 5000,
             'site2' => 3000,
             'site3' => 4000
+        ]))
+        ->default('priard_multisite.site_tags', json_encode([
+            'site1',
+            'site2', 
+            'site3'
         ])),
 
     // Event listeners
