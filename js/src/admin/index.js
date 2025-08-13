@@ -1,6 +1,6 @@
 import app from 'flarum/admin/app';
 
-app.initializers.add('priard-multisite', () => {
+app.initializers.add('priard-multisite', function() {
   app.extensionData
     .for('priard-multisite')
     .registerSetting({

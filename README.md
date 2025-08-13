@@ -1,11 +1,16 @@
 # Flarum Multisite Extension
 
-[![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)](https://github.com/priard/flarum-multisite-extension/releases)
+[![Version](https://img.shields.io/badge/version-0.3.1-blue.svg)](https://github.com/priard/flarum-multisite-extension/releases)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
 
 This extension adds multi-site support to Flarum for WordPress integration, allowing multiple WordPress sites to share a single Flarum instance for comments.
 
 ## Version History
+
+### v0.3.1 (2025-01-13)
+- Fixed JavaScript admin panel error
+- Added pre-built admin.js to avoid build requirements
+- Simplified admin settings implementation
 
 ### v0.3.0 (2025-01-13)
 - Added admin panel for configuring settings
@@ -272,6 +277,8 @@ npm install
 ```
 
 ### Building JavaScript Assets
+
+**Note:** The extension comes with pre-built JavaScript assets in `js/dist/admin.js`, so building is not required unless you modify the source files.
 
 If you modify the admin panel JavaScript:
 

@@ -1,6 +1,6 @@
 {
   "name": "@priard/flarum-multisite",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Multi-site support extension for Flarum with WordPress integration",
   "main": "js/dist/admin.js",
   "scripts": {
