@@ -1,0 +1,9 @@
+priard-multisite:
+  admin:
+    settings:
+      default_character_limit_label: Default Character Limit
+      default_character_limit_help: Maximum number of characters allowed in comments (default for all sites)
+      character_limits_label: Per-Site Character Limits
+      character_limits_help: 'JSON object with site-specific limits. Example: {"site1": 5000, "site2": 3000}'
+      site_tags_label: Site Tags
+      site_tags_help: 'JSON array of site tags. Example: ["site1", "site2", "site3"]'

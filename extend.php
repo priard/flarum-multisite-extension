@@ -12,6 +12,13 @@ use PriArd\FlarumMultisite\Api\Controller\UpdateDiscussionStatusController;
 use PriArd\FlarumMultisite\Listener\SaveDiscussionMetadata;
 
 return [
+    // Frontend assets
+    (new Extend\Frontend('admin'))
+        ->js(__DIR__ . '/js/dist/admin.js'),
+    
+    // Locales
+    (new Extend\Locales(__DIR__ . '/resources/locale')),
+    
     // Database migrations
 
     // API routes

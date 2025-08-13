@@ -1,11 +1,18 @@
 # Flarum Multisite Extension
 
-[![Version](https://img.shields.io/badge/version-0.2.2-blue.svg)](https://github.com/priard/flarum-multisite-extension/releases)
+[![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)](https://github.com/priard/flarum-multisite-extension/releases)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
 
 This extension adds multi-site support to Flarum for WordPress integration, allowing multiple WordPress sites to share a single Flarum instance for comments.
 
 ## Version History
+
+### v0.3.0 (2025-01-13)
+- Added admin panel for configuring settings
+- Added UI for managing character limits per site
+- Added localization support (English)
+- Added JavaScript build configuration
+- Enhanced installation and update documentation
 
 ### v0.2.2 (2025-01-13)
 - Fixed migration error with hasColumn check scope
@@ -39,36 +46,71 @@ This extension adds multi-site support to Flarum for WordPress integration, allo
 ## Features
 
 - Store metadata for each discussion (source domain, post ID, post URL, post status)
-- Configure character limits per site/tag
+- Configure character limits per site/tag via admin panel
 - Bulk metadata retrieval for efficient notification handling
 - API endpoints for WordPress integration
 - Discussion status management (lock/unlock, hide/restore)
 - Automatic discussion state sync with WordPress post status
+- Admin panel for managing settings and character limits
 
 ## Installation
 
-1. Clone this repository to a separate location (it will have its own Git repository)
-2. Navigate to your Flarum installation directory
-3. Install via Composer:
+### Production Installation
 
 ```bash
+cd /path/to/flarum
 composer require priard/flarum-multisite
+php flarum migrate
+php flarum cache:clear
 ```
 
-Or for local development:
+Then enable the extension in the admin panel.
+
+### Local Development Installation
+
+For development and testing:
 
 ```bash
+# Clone the extension repository
+git clone https://github.com/priard/flarum-multisite-extension.git
+cd flarum-multisite-extension
+composer install
+
+# Link to your local Flarum installation
+cd /path/to/flarum
 composer config repositories.multisite path /path/to/flarum-multisite-extension
 composer require priard/flarum-multisite:*
+
+# Run migrations and clear cache
+php flarum migrate
+php flarum cache:clear
 ```
 
-4. Run migrations:
+Enable the extension in the admin panel.
+
+### Updating the Extension
+
+#### Production Update
 
 ```bash
+cd /path/to/flarum
+composer update priard/flarum-multisite
 php flarum migrate
+php flarum cache:clear
 ```
 
-5. Enable the extension in the admin panel
+#### Development Update
+
+```bash
+# Pull latest changes
+cd /path/to/flarum-multisite-extension
+git pull origin main
+composer install
+
+# Clear Flarum cache
+cd /path/to/flarum
+php flarum cache:clear
+```
 
 ## API Endpoints
 
@@ -136,15 +178,40 @@ Manage discussion visibility and commenting status. Actions:
 
 ## Configuration
 
-### Character Limits
+### Admin Settings
 
-Set in Flarum admin panel under extension settings:
+Configure the extension in the Flarum admin panel:
 
-- Default character limit: 5000
-- Per-tag limits:
-  - site1: 5000
-  - site2: 3000
-  - site3: 4000
+1. Navigate to **Admin Panel → Extensions**
+2. Find **Multisite Comment System** and click settings
+3. Configure the following:
+
+#### Character Limits
+
+Set maximum character limits for comments per site:
+
+- **Default limit**: 5000 characters (applies to all sites without specific limits)
+- **Per-site limits**: Configure different limits for each site tag:
+  ```json
+  {
+    "site1": 5000,
+    "site2": 3000,
+    "site3": 4000
+  }
+  ```
+
+#### Site Tags
+
+Each WordPress site should use a unique tag to identify its discussions:
+- Configured in WordPress plugin settings
+- Used to apply site-specific character limits
+- Helps organize discussions by source site
+
+### Settings Storage
+
+Settings are stored with the following keys:
+- `priard_multisite.default_character_limit` - Default character limit
+- `priard_multisite.character_limits` - JSON object with per-site limits
 
 ## WordPress Plugin Integration
 
@@ -190,13 +257,48 @@ wp_remote_post($status_url, [
 
 ## Development
 
-To work on this extension:
+### Setup Development Environment
 
-1. Clone the repository
-2. Run `composer install`
-3. Link to your Flarum installation for testing
-4. Make changes and test
-5. Commit and push to the separate repository
+```bash
+# Clone the repository
+git clone https://github.com/priard/flarum-multisite-extension.git
+cd flarum-multisite-extension
+
+# Install PHP dependencies
+composer install
+
+# Install JavaScript dependencies (if modifying admin panel)
+npm install
+```
+
+### Building JavaScript Assets
+
+If you modify the admin panel JavaScript:
+
+```bash
+# Development build with watching
+npm run dev
+
+# Production build
+npm run build
+```
+
+### Testing Changes
+
+1. Link extension to your local Flarum
+2. Clear cache after changes: `php flarum cache:clear`
+3. Test in browser
+4. Check logs for errors: `tail -f storage/logs/flarum.log`
+
+### Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Make your changes
+4. Run `npm run build` if you modified JS
+5. Commit changes: `git commit -am 'Add new feature'`
+6. Push to branch: `git push origin feature/your-feature`
+7. Submit a pull request
 
 ## License
 
