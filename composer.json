@@ -1,0 +1,33 @@
+{
+    "name": "priard/flarum-multisite",
+    "description": "Multi-site support extension for Flarum with WordPress integration",
+    "version": "0.1.0",
+    "type": "flarum-extension",
+    "keywords": ["flarum", "wordpress", "multisite", "comments"],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "PriArd",
+            "email": "lukasz@focus.pl"
+        }
+    ],
+    "require": {
+        "flarum/core": "^1.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "PriArd\\FlarumMultisite\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Multisite Comment System",
+            "category": "feature",
+            "icon": {
+                "name": "fas fa-comments",
+                "backgroundColor": "#2c3e50",
+                "color": "#fff"
+            }
+        }
+    }
+}
