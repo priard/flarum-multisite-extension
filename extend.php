@@ -13,8 +13,6 @@ use PriArd\FlarumMultisite\Listener\SaveDiscussionMetadata;
 
 return [
     // Database migrations
-    (new Extend\Database())
-        ->migration('default', __DIR__ . '/migrations/2024_01_01_000000_create_discussion_metadata_table.php'),
 
     // API routes
     (new Extend\Routes('api'))
