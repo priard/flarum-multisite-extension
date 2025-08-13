@@ -1,11 +1,17 @@
 # Flarum Multisite Extension
 
-[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/ittechblog/flarum-multisite-extension/releases)
+[![Version](https://img.shields.io/badge/version-0.1.1-blue.svg)](https://github.com/priard/flarum-multisite-extension/releases)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
 
 This extension adds multi-site support to Flarum for WordPress integration, allowing multiple WordPress sites to share a single Flarum instance for comments.
 
 ## Version History
+
+### v0.1.1 (2025-01-13)
+- Changed namespace from ITTechBlog to PriArd
+- Updated package name to priard/flarum-multisite
+- Replaced example domains with generic placeholders
+- Updated settings keys to use priard prefix
 
 ### v0.1.0 (Initial Release)
 - Store metadata for discussions linking to WordPress posts
@@ -28,14 +34,14 @@ This extension adds multi-site support to Flarum for WordPress integration, allo
 3. Install via Composer:
 
 ```bash
-composer require ittechblog/flarum-multisite
+composer require priard/flarum-multisite
 ```
 
 Or for local development:
 
 ```bash
 composer config repositories.multisite path /path/to/flarum-multisite-extension
-composer require ittechblog/flarum-multisite:*
+composer require priard/flarum-multisite:*
 ```
 
 4. Run migrations:
@@ -51,7 +57,7 @@ php flarum migrate
 ### Get Comment Settings
 
 ```
-GET /api/comment-settings?tag=ittechblog
+GET /api/comment-settings?tag=site1
 ```
 
 Returns character limits and other comment settings.
@@ -71,11 +77,11 @@ POST /api/discussions/{id}/metadata
 Authorization: Token YOUR_API_TOKEN
 
 {
-    "domain": "ittechblog.pl",
+    "domain": "example-blog.com",
     "postId": "123",
     "postSlug": "example-post",
-    "postUrl": "https://ittechblog.pl/artykul/example-post",
-    "siteTag": "ittechblog"
+    "postUrl": "https://example-blog.com/posts/example-post",
+    "siteTag": "site1"
 }
 ```
 
@@ -99,9 +105,9 @@ Set in Flarum admin panel under extension settings:
 
 - Default character limit: 5000
 - Per-tag limits:
-  - ittechblog: 5000
-  - focus: 3000
-  - chip: 4000
+  - site1: 5000
+  - site2: 3000
+  - site3: 4000
 
 ## WordPress Plugin Integration
 
@@ -120,7 +126,7 @@ wp_remote_post($metadata_url, [
         'postId' => $post_id,
         'postSlug' => $post->post_name,
         'postUrl' => get_permalink($post_id),
-        'siteTag' => get_option('flarum_sync_site_tag', 'ittechblog')
+        'siteTag' => get_option('flarum_sync_site_tag', 'site1')
     ])
 ]);
 ```

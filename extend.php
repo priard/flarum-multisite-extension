@@ -40,11 +40,11 @@ return [
 
     // Settings for character limits
     (new Extend\Settings())
-        ->default('ittechblog_multisite.default_character_limit', 5000)
-        ->default('ittechblog_multisite.character_limits', json_encode([
-            'ittechblog' => 5000,
-            'focus' => 3000,
-            'chip' => 4000
+        ->default('priard_multisite.default_character_limit', 5000)
+        ->default('priard_multisite.character_limits', json_encode([
+            'site1' => 5000,
+            'site2' => 3000,
+            'site3' => 4000
         ])),
 
     // Event listeners

@@ -1,6 +1,6 @@
 <?php
 
-namespace ITTechBlog\FlarumMultisite\Api\Controller;
+namespace PriArd\FlarumMultisite\Api\Controller;
 
 use Flarum\Api\Controller\AbstractShowController;
 use PriArd\FlarumMultisite\Model\DiscussionMetadata;

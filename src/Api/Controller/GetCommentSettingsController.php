@@ -21,9 +21,9 @@ class GetCommentSettingsController extends AbstractShowController
     protected function data(ServerRequestInterface $request, Document $document)
     {
         // Get character limits from settings
-        $defaultLimit = (int) $this->settings->get('ittechblog_multisite.default_character_limit', 5000);
+        $defaultLimit = (int) $this->settings->get('priard_multisite.default_character_limit', 5000);
         $characterLimits = json_decode(
-            $this->settings->get('ittechblog_multisite.character_limits', '{}'),
+            $this->settings->get('priard_multisite.character_limits', '{}'),
             true
         );
         
