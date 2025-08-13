@@ -1,11 +1,16 @@
 # Flarum Multisite Extension
 
-[![Version](https://img.shields.io/badge/version-0.3.1-blue.svg)](https://github.com/priard/flarum-multisite-extension/releases)
+[![Version](https://img.shields.io/badge/version-0.3.2-blue.svg)](https://github.com/priard/flarum-multisite-extension/releases)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
 
 This extension adds multi-site support to Flarum for WordPress integration, allowing multiple WordPress sites to share a single Flarum instance for comments.
 
 ## Version History
+
+### v0.3.2 (2025-01-13)
+- Temporarily disabled admin panel to fix JavaScript errors
+- Extension now works without admin UI
+- Settings can be configured via database or API
 
 ### v0.3.1 (2025-01-13)
 - Fixed JavaScript admin panel error
@@ -183,13 +188,32 @@ Manage discussion visibility and commenting status. Actions:
 
 ## Configuration
 
-### Admin Settings
+### Manual Configuration (v0.3.2+)
 
-Configure the extension in the Flarum admin panel:
+Since the admin panel is temporarily disabled, configure settings directly in the database:
 
-1. Navigate to **Admin Panel → Extensions**
-2. Find **Multisite Comment System** and click settings
-3. Configure the following:
+```sql
+-- Set default character limit
+INSERT INTO settings (key, value) VALUES 
+('priard_multisite.default_character_limit', '5000')
+ON DUPLICATE KEY UPDATE value = '5000';
+
+-- Set per-site limits
+INSERT INTO settings (key, value) VALUES 
+('priard_multisite.character_limits', '{"site1":5000,"site2":3000,"site3":4000}')
+ON DUPLICATE KEY UPDATE value = '{"site1":5000,"site2":3000,"site3":4000}';
+```
+
+Or use Flarum's command line:
+
+```bash
+php flarum settings:set priard_multisite.default_character_limit 5000
+php flarum settings:set priard_multisite.character_limits '{"site1":5000,"site2":3000}'
+```
+
+### Admin Settings (Coming Soon)
+
+Once the admin panel is fixed, you'll be able to configure the extension in the Flarum admin panel:
 
 #### Character Limits
 

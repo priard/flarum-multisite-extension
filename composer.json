@@ -1,7 +1,7 @@
 {
     "name": "priard/flarum-multisite",
     "description": "Multi-site support extension for Flarum with WordPress integration",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "type": "flarum-extension",
     "keywords": ["flarum", "wordpress", "multisite", "comments"],
     "license": "Apache-2.0",

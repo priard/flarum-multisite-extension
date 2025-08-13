@@ -1,5 +1,5 @@
-app.initializers.add('priard-multisite', function() {
-  app.extensionData
+flarum.core.compat['admin/app'].initializers.add('priard-multisite', function() {
+  flarum.core.compat['admin/app'].extensionData
     .for('priard-multisite')
     .registerSetting({
       setting: 'priard_multisite.default_character_limit',
