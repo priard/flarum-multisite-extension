@@ -1,11 +1,17 @@
 # Flarum Multisite Extension
 
-[![Version](https://img.shields.io/badge/version-0.3.3-blue.svg)](https://github.com/priard/flarum-multisite-extension/releases)
+[![Version](https://img.shields.io/badge/version-0.3.4-blue.svg)](https://github.com/priard/flarum-multisite-extension/releases)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
 
 This extension adds multi-site support to Flarum for WordPress integration, allowing multiple WordPress sites to share a single Flarum instance for comments.
 
 ## Version History
+
+### v0.3.4 (2025-01-13)
+- Fixed critical bug preventing discussion creation from WordPress
+- Removed non-existent SaveDiscussionMetadata listener reference
+- Added error handling for metadata retrieval in serializer
+- Extension now properly allows discussion creation via API
 
 ### v0.3.3 (2025-01-13)
 - Fixed admin panel JavaScript errors
@@ -123,10 +129,15 @@ cd /path/to/flarum-multisite-extension
 git pull origin main
 composer install
 
-# Clear Flarum cache
+# Update the extension in Flarum (for local git installation)
 cd /path/to/flarum
+composer update priard/flarum-multisite --prefer-dist
+
+# Clear Flarum cache
 php flarum cache:clear
 ```
+
+**Note:** When using a local git repository linked via Composer, you must use `composer update priard/flarum-multisite --prefer-dist` to force Composer to recognize the changes from your local repository.
 
 ## API Endpoints
 

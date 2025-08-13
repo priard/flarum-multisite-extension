@@ -9,7 +9,6 @@ use PriArd\FlarumMultisite\Api\Controller\UpdateDiscussionMetadataController;
 use PriArd\FlarumMultisite\Api\Controller\GetCommentSettingsController;
 use PriArd\FlarumMultisite\Api\Controller\GetBulkMetadataController;
 use PriArd\FlarumMultisite\Api\Controller\UpdateDiscussionStatusController;
-use PriArd\FlarumMultisite\Listener\SaveDiscussionMetadata;
 
 return [
     // Frontend assets
@@ -32,14 +31,19 @@ return [
     // Add metadata to discussion serializer
     (new Extend\ApiSerializer(DiscussionSerializer::class))
         ->attributes(function (DiscussionSerializer $serializer, $discussion, $attributes) {
-            $metadata = $discussion->metadata;
-            
-            if ($metadata) {
-                $attributes['sourceDomain'] = $metadata->source_domain;
-                $attributes['sourcePostId'] = $metadata->source_post_id;
-                $attributes['sourcePostSlug'] = $metadata->source_post_slug;
-                $attributes['sourcePostUrl'] = $metadata->source_post_url;
-                $attributes['siteTag'] = $metadata->site_tag;
+            // Try to get metadata safely
+            try {
+                $metadata = \PriArd\FlarumMultisite\Model\DiscussionMetadata::where('discussion_id', $discussion->id)->first();
+                
+                if ($metadata) {
+                    $attributes['sourceDomain'] = $metadata->source_domain;
+                    $attributes['sourcePostId'] = $metadata->source_post_id;
+                    $attributes['sourcePostSlug'] = $metadata->source_post_slug;
+                    $attributes['sourcePostUrl'] = $metadata->source_post_url;
+                    $attributes['siteTag'] = $metadata->site_tag;
+                }
+            } catch (\Exception $e) {
+                // Silently fail if metadata table doesn't exist or other error
             }
             
             return $attributes;
@@ -57,9 +61,5 @@ return [
             'site1',
             'site2', 
             'site3'
-        ])),
-
-    // Event listeners
-    (new Extend\Event())
-        ->listen(\Flarum\Discussion\Event\Saving::class, SaveDiscussionMetadata::class)
+        ]))
 ];
