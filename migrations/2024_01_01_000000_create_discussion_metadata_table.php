@@ -14,6 +14,7 @@ return [
                 $table->string('source_post_slug', 255)->nullable();
                 $table->text('source_post_url')->nullable();
                 $table->string('site_tag', 100)->nullable();
+                $table->string('post_status', 50)->nullable()->default('publish');
                 $table->timestamps();
                 
                 // Foreign key to discussions table

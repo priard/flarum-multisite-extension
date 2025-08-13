@@ -15,7 +15,8 @@ class DiscussionMetadata extends AbstractModel
         'source_post_id',
         'source_post_slug',
         'source_post_url',
-        'site_tag'
+        'site_tag',
+        'post_status'
     ];
     
     protected $dates = ['created_at', 'updated_at'];

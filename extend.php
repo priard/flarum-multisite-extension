@@ -8,6 +8,7 @@ use PriArd\FlarumMultisite\Api\Controller\GetDiscussionMetadataController;
 use PriArd\FlarumMultisite\Api\Controller\UpdateDiscussionMetadataController;
 use PriArd\FlarumMultisite\Api\Controller\GetCommentSettingsController;
 use PriArd\FlarumMultisite\Api\Controller\GetBulkMetadataController;
+use PriArd\FlarumMultisite\Api\Controller\UpdateDiscussionStatusController;
 use PriArd\FlarumMultisite\Listener\SaveDiscussionMetadata;
 
 return [
@@ -19,6 +20,7 @@ return [
     (new Extend\Routes('api'))
         ->get('/discussions/{id}/metadata', 'discussions.metadata.show', GetDiscussionMetadataController::class)
         ->post('/discussions/{id}/metadata', 'discussions.metadata.update', UpdateDiscussionMetadataController::class)
+        ->post('/discussions/{id}/status', 'discussions.status.update', UpdateDiscussionStatusController::class)
         ->get('/comment-settings', 'comments.settings', GetCommentSettingsController::class)
         ->post('/discussions/metadata/bulk', 'discussions.metadata.bulk', GetBulkMetadataController::class),
 
