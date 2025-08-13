@@ -280,22 +280,62 @@ npm install
 
 **Note:** The extension comes with pre-built JavaScript assets in `js/dist/admin.js`, so building is not required unless you modify the source files.
 
+#### How Flarum Assets Work
+
+1. **Source files** are in `js/src/admin/index.js` (ES6+ modern JavaScript)
+2. **Compiled files** go to `js/dist/admin.js` (browser-compatible JavaScript)
+3. **Flarum loads** the compiled file specified in `extend.php`
+
+#### Building Assets Step-by-Step
+
 If you modify the admin panel JavaScript:
 
 ```bash
-# Development build with watching
+# 1. Install dependencies (first time only)
+npm install
+
+# 2. Build for development (with source maps)
 npm run dev
 
-# Production build
+# 3. Build for production (minified)
 npm run build
+
+# 4. Watch mode (auto-rebuild on changes)
+npm run dev -- --watch
+```
+
+#### When to Build
+
+- **NOT needed:** When installing the extension (pre-built files included)
+- **NEEDED:** When modifying files in `js/src/`
+- **NEEDED:** When adding new JavaScript functionality
+
+#### Build Output
+
+After building, you'll see:
+- `js/dist/admin.js` - Compiled admin panel code
+- `js/dist/admin.js.map` - Source map for debugging (dev build only)
+
+#### Troubleshooting Build Issues
+
+```bash
+# Clear npm cache if build fails
+npm cache clean --force
+rm -rf node_modules
+npm install
+
+# Verify webpack config
+npm run build -- --display-error-details
 ```
 
 ### Testing Changes
 
 1. Link extension to your local Flarum
-2. Clear cache after changes: `php flarum cache:clear`
-3. Test in browser
-4. Check logs for errors: `tail -f storage/logs/flarum.log`
+2. Build assets if modified: `npm run build`
+3. Clear cache after changes: `php flarum cache:clear`
+4. Test in browser (force refresh with Ctrl+F5)
+5. Check logs for errors: `tail -f storage/logs/flarum.log`
+6. Check browser console for JavaScript errors (F12)
 
 ### Contributing
 
